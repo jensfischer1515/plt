@@ -1,0 +1,4 @@
+target/generated*
+target/surefire-reports
+target/maven*
+target/test-classes
