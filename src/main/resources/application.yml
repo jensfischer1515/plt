@@ -1,51 +1,66 @@
+info:
+  build:
+    groupId: @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
+    name: @project.name@
+    description: @project.description@
+
+
+# APPLICATION SETTINGS (SpringApplication)
 spring:
   main:
     web_environment: true
     show_banner: true
 
-#  datasource:
-#    url: jdbc:mysql://localhost/test
-#    username: dbuser
-#    password: dbpass
-#    driver-class-name: com.mysql.jdbc.Driver
+  # DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  datasource:
+    #url: postgres://plt:plt@localhost:5432/plt
+    #username: dbuser
+    #password: dbpass
+    #driver-class-name: com.mysql.jdbc.Driver
+    max-active: 15
+    max-idle: 5
+    min-idle: 1
+    initial-size: 5
+    jmx-enabled: true
 
-  thymeleaf:
-    cache: false
-
+  # JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
 
-project:
-  artifactId: plt
-  name: Party Loot Tracker
-  version: X.Y.Z
-  description: Tracking all the loot since 2015!
+  thymeleaf:
+    cache: false
 
-info:
-  build:
-    artifact: @project.artifactId@
-    name: @project.name@
-    description: @project.description@
-    version: @project.version@
-  git:
-    branch: ${git.branch}
-    commit: ${git.commit}
 
-# see ServerProperties
+  # SPRING SOCIAL (SocialWebAutoConfiguration)
+  social:
+    auto-connection-views: true # Set to true for default connection views or false if you provide your own
+
+    # SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)
+    facebook:
+      app-id: ${facebook.app.id:123456789}
+      app-secret: ${facebook.app.secret:987654321}
+
+# FLYWAY (FlywayProperties)
+flyway:
+  enabled: true
+  #url: postgres://plt:plt@localhost:5432/plt
+  #username: dbuser
+  #password: dbpass
+
+
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
 server:
-  sessionTimeout: 1800
   port: ${port:8080}
-  #port: 8443
-  #ssl:
-    #key-store: classpath:sample.jks
-    #key-store-password: secret
-    #key-password: password
+  session-timeout: 1800
 
-# see SecurityProperties
+# SECURITY (SecurityProperties)
 security:
-  requireSsl: false
+  require-ssl: false
+  enable-csrf: false
   #ignored: /api/hello
   basic:
     realm: Party Loot Tracker
@@ -54,11 +69,12 @@ security:
     password: password
 
 
-
+# MANAGEMENT HTTP SERVER (ManagementServerProperties)
 management:
   context-path: /system
   security:
     enabled: false
+    role: ADMIN
 
 endpoints:
   health:
