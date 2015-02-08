@@ -1,0 +1,74 @@
+spring:
+  main:
+    web_environment: true
+    show_banner: true
+
+#  datasource:
+#    url: jdbc:mysql://localhost/test
+#    username: dbuser
+#    password: dbpass
+#    driver-class-name: com.mysql.jdbc.Driver
+
+  thymeleaf:
+    cache: false
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+project:
+  artifactId: plt
+  name: Party Loot Tracker
+  version: X.Y.Z
+  description: Tracking all the loot since 2015!
+
+info:
+  build:
+    artifact: @project.artifactId@
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+  git:
+    branch: ${git.branch}
+    commit: ${git.commit}
+
+# see ServerProperties
+server:
+  sessionTimeout: 1800
+  port: ${port:8080}
+  #port: 8443
+  #ssl:
+    #key-store: classpath:sample.jks
+    #key-store-password: secret
+    #key-password: password
+
+# see SecurityProperties
+security:
+  requireSsl: false
+  #ignored: /api/hello
+  basic:
+    realm: Party Loot Tracker
+  user:
+    name: admin
+    password: password
+
+
+
+management:
+  context-path: /system
+  security:
+    enabled: false
+
+endpoints:
+  health:
+    sensitive: false
+  jmx:
+    domain: PartyLootTracker
+    uniqueNames: false
+  jolokia:
+    path: /jmx
+
+jolokia:
+  config:
+    debug: true
