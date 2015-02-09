@@ -38,7 +38,7 @@ public class PartyLootTrackerApplication {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers("/", "/login", "/webjars/**", "/css/*", "/js/**", "/images/**",  "/**/favicon.ico", "/robots.txt", "/sitemap.xml").permitAll()
+                    .antMatchers("/", "/login", "/webjars/**", "/css/**", "/js/**", "/images/**",  "/**/favicon.ico", "/robots.txt", "/sitemap.xml").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
