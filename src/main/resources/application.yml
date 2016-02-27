@@ -6,7 +6,6 @@ info:
     name: @project.name@
     description: @project.description@
 
-
 # APPLICATION SETTINGS (SpringApplication)
 spring:
   main:
@@ -15,41 +14,33 @@ spring:
 
   # DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
   datasource:
-    #url: postgres://plt:plt@localhost:5432/plt
-    #username: dbuser
-    #password: dbpass
-    #driver-class-name: com.mysql.jdbc.Driver
     max-active: 15
     max-idle: 5
     min-idle: 1
     initial-size: 5
     jmx-enabled: true
 
+  h2:
+    console:
+      enabled: true
+
   # JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)
   jpa:
     show-sql: true
+    generate-ddl: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 
   thymeleaf:
     cache: false
 
-
-  # SPRING SOCIAL (SocialWebAutoConfiguration)
-  social:
-    auto-connection-views: true # Set to true for default connection views or false if you provide your own
-
-    # SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)
-    facebook:
-      app-id: ${facebook.app.id:123456789}
-      app-secret: ${facebook.app.secret:987654321}
+  data:
+    rest:
+      basePath: api
 
 # FLYWAY (FlywayProperties)
 flyway:
-  enabled: true
-  #url: postgres://plt:plt@localhost:5432/plt
-  #username: dbuser
-  #password: dbpass
+  enabled: false
 
 
 # EMBEDDED SERVER CONFIGURATION (ServerProperties)
@@ -57,24 +48,9 @@ server:
   port: ${port:8080}
   session-timeout: 1800
 
-# SECURITY (SecurityProperties)
-security:
-  require-ssl: false
-  enable-csrf: false
-  #ignored: /api/hello
-  basic:
-    realm: Party Loot Tracker
-  user:
-    name: admin
-    password: password
-
-
 # MANAGEMENT HTTP SERVER (ManagementServerProperties)
 management:
   context-path: /system
-  security:
-    enabled: false
-    role: ADMIN
 
 endpoints:
   health:
@@ -82,9 +58,11 @@ endpoints:
   jmx:
     domain: PartyLootTracker
     uniqueNames: false
-  jolokia:
-    path: /jmx
 
-jolokia:
-  config:
-    debug: true
+
+logging:
+  level:
+    org.hibernate: 'INFO'
+    org.springframework.instrument: 'TRACE'
+    org.springframework.boot: 'INFO'
+    org.springframework.core: 'INFO'
