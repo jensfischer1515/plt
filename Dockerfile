@@ -1,6 +1,6 @@
 FROM java:8u66-jre
 
-ENV JAVA_TOOL_OPTIONS="-Xmx256m -Duser.timezone=Europe/Paris"
+ENV JAVA_TOOL_OPTIONS="-Xmx350m -Xss512k -Dfile.encoding=UTF-8 -Xss512k -XX:+UseCompressedOops -Duser.timezone=Europe/Paris"
 
 COPY target/plt-DEV-SNAPSHOT.jar /app/plt.jar
 

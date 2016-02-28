@@ -32,4 +32,4 @@ flyway:
 
 endpoints:
   env:
-    keys-to-sanitize: password,secret,key,url
+    keys-to-sanitize: password,secret,key,token,url
