@@ -16,7 +16,8 @@ db:
     - POSTGRES_PASSWORD=plt
 
 web:
-  build: .
+  #build: .
+  image: jensfischerhh/plt:latest
   ports:
     - "8080:8080"
   volumes:

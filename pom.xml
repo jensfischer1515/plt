@@ -174,7 +174,8 @@
                         <!--<version>2.2.0</version>-->
                         <configuration>
                             <gitDescribe>
-                                <skip>true</skip>
+                                <skip>false</skip>
+                                <always>true</always>
                             </gitDescribe>
                         </configuration>
                     </plugin>
