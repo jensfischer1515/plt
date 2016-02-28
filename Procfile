@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/plt-*.jar --spring.profiles.active=heroku
+web: java $JAVA_OPTS -Dspring.profiles.active=heroku -jar target/plt-*.jar

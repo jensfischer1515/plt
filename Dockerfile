@@ -1,11 +1,12 @@
-FROM java:8u66-jre
+FROM maven:3.3-jdk-8
 
 ENV JAVA_TOOL_OPTIONS="-Xmx350m -Xss512k -Dfile.encoding=UTF-8 -Xss512k -XX:+UseCompressedOops -Duser.timezone=Europe/Paris"
 
-COPY target/plt-DEV-SNAPSHOT.jar /app/plt.jar
+WORKDIR /app/build
+ADD . /app/build
+RUN mvn --errors -P docker -Dmaven.test.skip=true clean package && \
+    mv -v target/plt.jar /app/plt.jar && \
+    rm -rf /app/build
 
 WORKDIR /app
-
-#ENTRYPOINT ["java","-jar","/app/plt.jar"]
-#ENTRYPOINT ["java", "-Dspring.jpa.generateDdl=true", "-Dspring.jpa.showSql=true", "-Dspring.jpa.hibernate.ddlAuto=create", "-jar","/app/plt.jar"]
-ENTRYPOINT ["java", "-Dspring.jpa.generateDdl=false", "-Dspring.jpa.showSql=true", "-Dspring.jpa.hibernate.ddlAuto=validate", "-jar","/app/plt.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=heroku", "-jar", "/app/plt.jar"]
