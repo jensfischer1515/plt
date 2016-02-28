@@ -1,29 +1,29 @@
-pltdata:
+data:
   image: busybox
   command: /bin/true
   volumes:
     - /var/lib/postgresql/data
 
-pltdb:
-  image: postgres:9.3
+db:
+  image: postgres:9.4
   ports:
     - "5432:5432"
   volumes_from:
-    - pltdata
+    - data
   environment:
     - POSTGRES_DB=plt
     - POSTGRES_USER=plt
     - POSTGRES_PASSWORD=plt
 
-plt:
+web:
   build: .
   environment:
     - PORT=8080
     - SPRING_PROFILES_ACTIVE=heroku
-    - JDBC_DATABASE_URL=jdbc:postgresql://pltdb:5432/plt
+    - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/plt
     - JDBC_DATABASE_USERNAME=plt
     - JDBC_DATABASE_PASSWORD=plt
   ports:
     - "8080:8080"
   links:
-    - pltdb
+    - db
