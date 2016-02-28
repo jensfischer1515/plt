@@ -1,0 +1,20 @@
+{
+  "name": "plt",
+  "description": "Party Loot Tracker",
+  "scripts": {
+  },
+  "env": {
+    "JAVA_OPTS": {
+      "required": true
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/java"
+    }
+  ]
+}
