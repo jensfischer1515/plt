@@ -17,13 +17,15 @@ db:
 
 web:
   build: .
+  ports:
+    - "8080:8080"
+  volumes:
+    - ~/.m2/repository:/root/.m2/repository
+  links:
+    - db
   environment:
     - PORT=8080
-    - SPRING_PROFILES_ACTIVE=heroku
     - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/plt
     - JDBC_DATABASE_USERNAME=plt
     - JDBC_DATABASE_PASSWORD=plt
-  ports:
-    - "8080:8080"
-  links:
-    - db
+  command: ["--spring.jpa.generateDdl=false", "--spring.jpa.showSql=true", "--spring.jpa.hibernate.ddlAuto=validate"]
