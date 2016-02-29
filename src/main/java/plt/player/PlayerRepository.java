@@ -1,4 +1,4 @@
-package plt;
+package plt.player;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

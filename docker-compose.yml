@@ -16,12 +16,9 @@ db:
     - POSTGRES_PASSWORD=plt
 
 web:
-  #build: .
   image: jensfischerhh/plt:latest
   ports:
     - "8080:8080"
-  volumes:
-    - ~/.m2/repository:/root/.m2/repository
   links:
     - db
   environment:
@@ -29,4 +26,3 @@ web:
     - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/plt
     - JDBC_DATABASE_USERNAME=plt
     - JDBC_DATABASE_PASSWORD=plt
-  command: ["--spring.jpa.generateDdl=false", "--spring.jpa.showSql=true", "--spring.jpa.hibernate.ddlAuto=validate"]
