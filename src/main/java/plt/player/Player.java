@@ -1,4 +1,4 @@
-package plt;
+package plt.player;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;

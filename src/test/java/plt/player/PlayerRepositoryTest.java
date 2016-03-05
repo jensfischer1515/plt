@@ -1,4 +1,4 @@
-package plt;
+package plt.player;
 
 import org.junit.After;
 import org.junit.Test;
@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import plt.PartyLootTrackerTests;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static plt.Player.newPlayer;
+import static plt.player.Player.newPlayer;
 
 @PartyLootTrackerTests
 @RunWith(SpringJUnit4ClassRunner.class)

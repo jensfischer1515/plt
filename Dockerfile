@@ -4,7 +4,7 @@ ENV JAVA_TOOL_OPTIONS="-Xmx350m -Xss512k -Dfile.encoding=UTF-8 -Xss512k -XX:+Use
 
 WORKDIR /app/build
 ADD . /app/build
-RUN mvn --errors -P docker -Dmaven.test.skip=true clean package && \
+RUN mvn --errors --activate-profiles docker --define maven.test.skip=true clean package && \
     mv -v target/plt.jar /app/plt.jar && \
     rm -rf /app/build
 
