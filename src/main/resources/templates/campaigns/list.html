@@ -11,9 +11,28 @@
 
 <div th:replace="fragments :: navbar"></div>
 
-<div class="container">
+<!--@thymesVar id="page" type="org.springframework.data.domain.Page<>"-->
+<div class="container" th:if="${page.hasContent()}">
     <h1>List Campaigns</h1>
+
+    <div th:replace="fragments :: pager (page=${page},uri='/campaigns',sort='name')"></div>
+
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="campaign : ${page.content}">
+            <td th:text="${campaign.name}">Campaign</td>
+            <td th:text="${campaign.active}">true</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
 
 <div th:replace="fragments :: footer"></div>
 
