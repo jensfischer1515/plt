@@ -22,7 +22,7 @@ public class CampaignController {
 
     @RequestMapping(value = {"", "/"}, method = GET)
     public String list(Model model, Pageable pageable) {
-        model.addAttribute("campaigns", campaignRepository.findAll(pageable));
+        model.addAttribute("page", campaignRepository.findAll(pageable));
         return "campaigns/list";
     }
 

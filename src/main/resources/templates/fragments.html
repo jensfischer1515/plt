@@ -32,7 +32,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Campaigns <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/campaigns/">List Campaigns</a></li>
+                        <li><a href="/campaigns?sort=name,ASC&amp;size=2">List Campaigns</a></li>
                         <li><a href="/campaigns/create">Create Campaign</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -51,6 +51,65 @@
                 </li>
             </ul>
         </div>
+    </div>
+</div>
+
+
+<!--@thymesVar id="page" type="org.springframework.data.domain.Page<>"-->
+<!--@thymesVar id="uri" type="java.lang.String"-->
+<div th:fragment="pager (page, uri, sort)" class="row">
+    <div class="col-md-12 text-center">
+        Showing <span th:text="${page.totalElements}"></span> elements
+    </div>
+    <div class="col-md-12 text-center" th:if="${page.hasContent() and page.totalPages gt 1}">
+        <ul class="pagination">
+            <!-- first page -->
+            <th:block th:with="disabled=${page.first}">
+                <li th:class="${disabled} ? 'disabled'">
+                    <a th:href="@{${disabled} ? 'javascript:void(0);' : ${uri}(page=0,size=${page.size},sort=${sort})}">
+                        &lt;&lt;
+                    </a>
+                </li>
+            </th:block>
+
+            <!-- previous page -->
+            <th:block th:with="disabled=${not page.hasPrevious()}">
+                <li th:class="${disabled} ? 'disabled'">
+                    <a th:href="@{${disabled} ? 'javascript:void(0);' : ${uri}(page=${page.number - 1},size=${page.size},sort=${sort})}">
+                        &lt;
+                    </a>
+                </li>
+            </th:block>
+
+            <!-- individual pages -->
+            <th:block th:each="currentPage : ${#numbers.sequence(0, page.totalPages - 1)}"
+                      th:with="current=${page.number eq currentPage}">
+                <li th:class="${current} ? 'active'">
+                    <a th:text="${currentPage + 1}"
+                       th:href="@{${current} ? 'javascript:void(0);' : ${uri}(page=${currentPage},size=${page.size},sort=${sort})}">
+                        3
+                    </a>
+                </li>
+            </th:block>
+
+            <!-- next page -->
+            <th:block th:with="disabled=${not page.hasNext()}">
+                <li th:class="${disabled} ? 'disabled'">
+                    <a th:href="@{${disabled} ? 'javascript:void(0);' : ${uri}(page=${page.number + 1},size=${page.size},sort=${sort})}">
+                        &gt;
+                    </a>
+                </li>
+            </th:block>
+
+            <!-- last page -->
+            <th:block th:with="disabled=${page.last}">
+                <li th:class="${disabled} ? 'disabled'">
+                    <a th:href="@{${disabled} ? 'javascript:void(0);' : ${uri}(page=${page.totalPages - 1},size=${page.size},sort=${sort})}">
+                        &gt;&gt;
+                    </a>
+                </li>
+            </th:block>
+        </ul>
     </div>
 </div>
 
